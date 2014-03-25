@@ -1,4 +1,4 @@
-#summary control by Raspberry Pi summary of this page.
+#summary control by Raspberry Pi
 
 = Introduction =
 
