@@ -1,0 +1,14 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+control by Raspberry Pi
+
+
+= Action Description =
+
+  * SIVA control by Raspberry Pi
+  * The first is action.
+    1) Raspberry Pi send command "Go", "Stop", "Turn Right", "Turn Left"
+    2) SIVA act after Raspberry Pi command.
+    3) SIVA response the confirm message to Raspberry Pi 
