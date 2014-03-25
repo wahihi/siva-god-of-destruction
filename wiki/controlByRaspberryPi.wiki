@@ -9,7 +9,7 @@ control by Raspberry Pi
 
   * SIVA control by Raspberry Pi
   * The first is action.
-    * SIVA <=> Raspberry Pi [Data send, Data receive] Check
+    * SIVA <=> Raspberry Pi (Data send, Data receive) Check
     * Raspberry Pi send command "Go", "Stop", "Turn Right", "Turn Left"
     * SIVA act after Raspberry Pi command.
     * SIVA response the confirm message to Raspberry Pi 
