@@ -14,6 +14,7 @@ control by Raspberry Pi
        * modify the tank control source. 
        기존에 main 함수에 있던 tank control 소스를 따로 뽑아서, 해당 함수를 호출해서 동작 시키도록 만든다. 
       - [실행 결과는 동영상 촬영 후 YouTube에 남겨두기]
+      - [뽀삐와 SIVA의 조우] 라는 제목으로 유투브 올리기]
 
     * Raspberry Pi send command "Go", "Stop", "Turn Right", "Turn Left"
     * SIVA act after Raspberry Pi command.
