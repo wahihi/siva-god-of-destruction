@@ -22,3 +22,7 @@ control by Raspberry Pi(RPI)
 
     * RPI가 블루투스를 통해, 블루투스 스피커를 control
        * 음악재생, TTS 기능. SIVA 기능에 맞춰 TTS 재생.
+
+    * 블루투스 전파 강도에 따른, 위치 지정
+       * 정지 시켜야 할 지점별로 블루투스 강세를 기록.
+       * RPI의 명령에 따라 해당 강도에 맞는 위치로 SIVA 이동.
