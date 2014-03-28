@@ -20,9 +20,15 @@ control by Raspberry Pi(RPI)
     * SIVA act after Raspberry Pi command.
     * SIVA response the confirm message to Raspberry Pi 
 
-    * RPI가 블루투스를 통해, 블루투스 스피커를 control
-       * 음악재생, TTS 기능. SIVA 기능에 맞춰 TTS 재생.
+    * Raspberry Pi가 SIVA에게, 센서 ( 온습도 센서, sound 센서 ) 데이터를 요청.
+       * 데이타를 1회 요청, 반복적으로 시간간격으로 요청,
+       * Raspberry Pi는 센서데이타를 DB에 넣고, 주기적으로 메일링 리스트에 등록된 사람에게 데이타를 보내 준다.
 
     * 블루투스 전파 강도에 따른, 위치 지정
        * 정지 시켜야 할 지점별로 블루투스 강세를 기록.
        * RPI의 명령에 따라 해당 강도에 맞는 위치로 SIVA 이동.
+
+    * RPI가 블루투스를 통해, 블루투스 스피커를 control
+       * 음악재생, TTS 기능. SIVA 기능에 맞춰 TTS 재생.
+
+    * LG스마트 조명을 RPI가 제어하여, 새로운 기능을 추가
