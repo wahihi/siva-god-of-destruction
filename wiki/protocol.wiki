@@ -7,26 +7,18 @@
 
 = Details =
 
-Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
-
-
-
-  * SIVA <-> RPI pairing 시 메시지
+  * SIVA 대 RPI pairing 시 메시지
 
     +CONNECTING<<00:1a:7d:da:71:03
     +RNAME=raspberrypi-0
     +CONNECTED
 
   * 데이타 보냈을때 메시지
-     11.0 22.0+DISC:SUCCESS
+     11 22+DISC:SUCCESS
 
-  * SIVA <-> RPI disconnect시 메시지
+  * SIVA 대 RPI disconnect시 메시지
      +READY
      +PAIRABLE
-
-
 
 
 
