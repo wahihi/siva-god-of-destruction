@@ -1,4 +1,4 @@
-#blueTooth Protocol 
+#blueTooth Protocol summary SIVA와 라즈베리파이간 블루투스 통신시 프로토콜 정리
 
 = Introduction =
 
@@ -19,6 +19,4 @@
   * SIVA 대 RPI disconnect시 메시지
      +READY
      +PAIRABLE
-
-
 
