@@ -14,13 +14,11 @@
     +CONNECTED
 
   * 데이타 보냈을때 메시지
-     11 22+DISC:SUCCESS
+    * 11.0 22.0 +DISC:SUCCESS
 
   * SIVA 대 RPI disconnect시 메시지
      +READY
      +PAIRABLE
-
-
 
 
 
