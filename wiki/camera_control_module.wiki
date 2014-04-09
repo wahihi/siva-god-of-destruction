@@ -1,9 +1,9 @@
-#summary 새를 관찰하기위한 카메라 모듈 요구사한.
+#summary 새를 관찰하기위한 카메라 모듈 요구사항.
 #labels 카메라모듈
 
 = Introduction =
 
-카메라 모듈.
+카메라 바디제어용 모듈.
 
 
 = Details =
