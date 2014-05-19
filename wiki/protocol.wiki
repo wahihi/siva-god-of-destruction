@@ -19,3 +19,15 @@
   * SIVA 대 RPI disconnect시 메시지
      +READY
      +PAIRABLE
+
+= Protocol 규칙 =
+
+  * 6하원칙에 근거해서 작성
+  * 육하원칙(六何原則)은 기사문에 반드시 들어가야 할 여섯가지 요소를 말한다. 
+    여섯가지 요소는 (순서대로)누가(who), 언제(when), 어디서(where), 무엇(what), 어떻게(how), 왜(why)이다. 
+   영어 단어의 머릿글자를 따서 5W1H라고도 한다.
+
+= SIVA의 경우 3W1H 를 적용한다 =
+
+  * 언제(when), 어디서(where), 무엇(what), 어떻게(how)
+  * 
