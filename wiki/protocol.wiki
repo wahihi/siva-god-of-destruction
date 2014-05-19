@@ -47,10 +47,10 @@
 
 = Status Info (Main Station 요청) =
   * 아래의 정보들을 전송한다.
-  * SoundSensor
-  * TemperatureSensor 
-  * MoistureSensor
+  * SoundSensor.
+  * TemperatureSensor.
+  * MoistureSensor.
   * ULTRA상태,
-  * Turbo모드 상태
+  * Turbo모드 상태.
   * BlueTooth 강도.(블루투스 강도로 SIVA의 위치를 측정 가능한지 확인하자)
-  * Command Log를 전달
+  * Command Log를 전달.
