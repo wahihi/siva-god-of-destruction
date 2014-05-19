@@ -39,3 +39,18 @@
 
   * Device Act (command) ->  Response (Device Act가 제대로 수행 유무 Ack 날림)
   * Status Info (모든 device의 상태 정보 요청) ->  Response ( 모든 정보 전달 )   
+
+= Device Act (Main Station 요청) =
+  * Device Act (command) ->  Response (Device Act가 제대로 수행 유무 Ack 날림)
+  * SIVA 본체에 대한 명령. SIVA-[GO,STOP,BACK,TURN_LEFT,TURN_RIGHT,TURBO]  
+  * SIVA는 action. 실행이 완료 된 후, 실행 명령을 command log에 남기고, Ack를 main station에 보내준다. 실행이 fail 후, 현재 status를 전송한다.
+
+= Status Info (Main Station 요청) =
+  * 아래의 정보들을 전송한다.
+  * SoundSensor
+  * TemperatureSensor 
+  * MoistureSensor
+  * ULTRA상태,
+  * Turbo모드 상태
+  * BlueTooth 강도.(블루투스 강도로 SIVA의 위치를 측정 가능한지 확인하자)
+  * Command Log를 전달
