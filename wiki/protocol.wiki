@@ -35,3 +35,7 @@
 ~~  * Header : 3W1H ~~
 ~~  * 언제(when)어디서(where)무엇(what)어떻게(how)~~
 
+= Main Station  -> SIVA =
+
+  * Device Act (command) ->  Response (Device Act가 제대로 수행 유무 Ack 날림)
+  * Status Info (모든 device의 상태 정보 요청) ->  Response ( 모든 정보 전달 )   
