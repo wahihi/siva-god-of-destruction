@@ -54,3 +54,7 @@
   * Turbo모드 상태.
   * BlueTooth 강도.(블루투스 강도로 SIVA의 위치를 측정 가능한지 확인하자)
   * Command Log를 전달.
+
+= Example Code =
+  * SIVA에서 header 와 tail 을 담당하는 part는 "SIVA" 와 "END" 이다.
+  * header는 startsWith 메소드, tail은 endsWith 메소드로 체크 한다.
