@@ -29,6 +29,11 @@ control by Raspberry Pi(RPI)
        * 정지 시켜야 할 지점별로 블루투스 강세를 기록.
        * RPI의 명령에 따라 해당 강도에 맞는 위치로 SIVA 이동.
 
+= 지형 탐색 기능 =
+    * SIVA가 초기, 전체 지형을 이동 하며, 장애물의 위치 확인, 온습도 데이타, BlueTooth 강도 등을 보내면, Raspberry Pi의 DataBase에 저장 해 둔다.
+
+= 기타 기능 =
+
     * RPI가 블루투스를 통해, 블루투스 스피커를 control
        * 음악재생, TTS 기능. SIVA 기능에 맞춰 TTS 재생.
 
