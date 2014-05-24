@@ -328,13 +328,12 @@ void loop()
     
     if(bluetooth.available())
     {
+#if 1
         inDat = bluetooth.read();
         sCommand.concat(inDat);    
         po1 = sCommand.indexOf('+');
         po2 = sCommand.indexOf('\n');  
         
-        //역슬레시를 만나면, 자동으로 String변수 reset시키는 코드
-        //한 문장이 완성되었을때 set되는 코드
         if(po2 > 0)
         {
             cmdBuffer[cnt] = sCommand;
@@ -357,12 +356,63 @@ void loop()
         if(BTstatus == "CONNECT"){
            Serial.println(BTstatus);
            Serial.println(sCommand);
-        }
-        //    
-        //Serial.println(sCommand);       
-        //Serial.println(po1);    
-        //Serial.println(po2);
-            
+           
+#if 1  //insert bluetooth char
+          if(sCommand.startsWith("SIVA")){
+        
+              mainMsg.concat(inDat); 
+              if(mainMsg.endsWith("END")){
+                Serial.println("#############");
+                Serial.println(mainMsg);
+                int index_last = mainMsg.lastIndexOf("END");
+                Serial.println(index_last);        
+                mainMsg = mainMsg.substring(1, index_last);
+                Serial.println(mainMsg);
+                message_process(mainMsg);
+                sCommand = "";
+                mainMsg = "";
+              }
+              else{
+                Serial.println("tail_Bad");
+              }         
+            }
+            else{
+              Serial.println("header_Bad");
+            }
+#endif  //insert bluetooth char
+           
+           
+        }        
+#endif    
+
+#if 0
+    Serial.println("<<<===  BlueTooth available ===>>>");        
+    sCommand.concat(inDat);  
+    
+    if(sCommand.startsWith("SIVA")){
+
+      mainMsg.concat(inDat); 
+      if(mainMsg.endsWith("END")){
+        Serial.println("#############");
+        Serial.println(mainMsg);
+        int index_last = mainMsg.lastIndexOf("END");
+        Serial.println(index_last);        
+        mainMsg = mainMsg.substring(1, index_last);
+        Serial.println(mainMsg);
+        message_process(mainMsg);
+        sCommand = "";
+        mainMsg = "";
+      }
+      else{
+        Serial.println("tail_Bad");
+      }         
+    }
+    else{
+      Serial.println("header_Bad");
+    }
+#endif        
+     //Serial.println(sCommand);
+    // delay(100);
     }
 
 //==> String check test code.
@@ -399,6 +449,7 @@ void loop()
    
    if(Serial.available())
    {
+     Serial.println("<<<===  Serial available ===>>>");
      inDat = Serial.read();    
      sCommand.concat(inDat);  
     
