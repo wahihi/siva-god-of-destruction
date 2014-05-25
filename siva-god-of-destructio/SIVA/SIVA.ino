@@ -323,9 +323,7 @@ void loop()
     int po2=0;
     static int cnt;
     char temp[20];
-    
-    
-    
+        
     if(bluetooth.available())
     {
 #if 1
@@ -369,6 +367,11 @@ void loop()
                 mainMsg = mainMsg.substring(1, index_last);
                 Serial.println(mainMsg);
                 message_process(mainMsg);
+                
+                //'A'->'A', 'ABC'-> 'C', 48->0, 55->7, 56->8
+                //Only 1byte send on BlueTooth
+                bluetooth.write('ABC'); 
+                
                 sCommand = "";
                 mainMsg = "";
               }
@@ -525,6 +528,7 @@ void loop()
   
     
 }
+
 
 
 
