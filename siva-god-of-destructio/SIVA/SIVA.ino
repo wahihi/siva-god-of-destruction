@@ -238,6 +238,14 @@ void message_process(String msg)
 #endif
      
 }
+
+//char temp[20];
+void msg_to_rpi(char msg)
+{
+  //bluetooth.write('ABC'); 
+  Serial.print(msg);  
+}
+
 void loop()
 {
     char inDat;
@@ -301,24 +309,7 @@ void loop()
         Serial.println(motorHandler);     
       }
     }
-  /*
-    if(bluetooth.available())
-    {
-        inDat = bluetooth.read();
-        sCommand.concat(inDat);
-        //Serial.print(inDat);
-        Serial.println(inDat);
-       // Serial.println("Input Stop");       
-       
-        if( inDat == '+' )
-        {
-          Serial.println("GO");
-          go_machine();
-        }
-      
-        Serial.println(sCommand);           
-    }
-  */
+ 
     int po1=0;
     int po2=0;
     static int cnt;
@@ -326,7 +317,6 @@ void loop()
         
     if(bluetooth.available())
     {
-#if 1
         inDat = bluetooth.read();
         sCommand.concat(inDat);    
         po1 = sCommand.indexOf('+');
@@ -353,9 +343,8 @@ void loop()
         //sCommand.indexOf('n');  
         if(BTstatus == "CONNECT"){
            Serial.println(BTstatus);
-           Serial.println(sCommand);
-           
-#if 1  //insert bluetooth char
+           Serial.println(sCommand);           
+
           if(sCommand.startsWith("SIVA")){
         
               mainMsg.concat(inDat); 
@@ -370,7 +359,8 @@ void loop()
                 
                 //'A'->'A', 'ABC'-> 'C', 48->0, 55->7, 56->8
                 //Only 1byte send on BlueTooth
-                bluetooth.write('ABC'); 
+                //bluetooth.write('ABC'); 
+                msg_to_rpi('ABC');
                 
                 sCommand = "";
                 mainMsg = "";
@@ -382,38 +372,9 @@ void loop()
             else{
               Serial.println("header_Bad");
             }
-#endif  //insert bluetooth char
-           
-           
+            
         }        
-#endif    
-
-#if 0
-    Serial.println("<<<===  BlueTooth available ===>>>");        
-    sCommand.concat(inDat);  
     
-    if(sCommand.startsWith("SIVA")){
-
-      mainMsg.concat(inDat); 
-      if(mainMsg.endsWith("END")){
-        Serial.println("#############");
-        Serial.println(mainMsg);
-        int index_last = mainMsg.lastIndexOf("END");
-        Serial.println(index_last);        
-        mainMsg = mainMsg.substring(1, index_last);
-        Serial.println(mainMsg);
-        message_process(mainMsg);
-        sCommand = "";
-        mainMsg = "";
-      }
-      else{
-        Serial.println("tail_Bad");
-      }         
-    }
-    else{
-      Serial.println("header_Bad");
-    }
-#endif        
      //Serial.println(sCommand);
     // delay(100);
     }
@@ -467,6 +428,9 @@ void loop()
         mainMsg = mainMsg.substring(1, index_last);
         Serial.println(mainMsg);
         message_process(mainMsg);
+        
+        msg_to_rpi('ABC');//test code
+        
         sCommand = "";
         mainMsg = "";
       }
