@@ -246,19 +246,25 @@ void message_process(String msg)
  * so i write this function.
 *************************************************************************/
 
+//////////  ==> msg_to_rpi function is necessary debugging
+#define ASCII 48  // decimal to ASCII
 void msg_to_rpi(String msg)
 {
   int msgLength = msg.length();
   char sendChar;
-  
-  for( int i=0; i < msgLength; i++)
+    
+  bluetooth.write(msgLength + ASCII);
+  //for( int i=0; i < msgLength; i++)
   {
-    sendChar = msg.charAt(i);
+   // sendChar = msg.charAt(i);
     
-    bluetooth.write(sendChar);     
+    //bluetooth.write(sendChar);     
+   // bluetooth.write(i + ASCII);    
+     
+     //Serial.print(i);   
     
-    Serial.print(sendChar);  
-    Serial.print('\n');  
+    //Serial.print(sendChar);  
+    //Serial.print('\n');  
 
   }
   
@@ -447,7 +453,7 @@ void loop()
         Serial.println(mainMsg);
         message_process(mainMsg);
         
-        msg_to_rpi("ABC");//test code
+        msg_to_rpi("KANG");//test code
         
         sCommand = "";
         mainMsg = "";
