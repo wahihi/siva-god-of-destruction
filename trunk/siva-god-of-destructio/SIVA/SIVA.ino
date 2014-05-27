@@ -253,17 +253,17 @@ void msg_to_rpi(String msg)
   int msgLength = msg.length();
   char sendChar;
     
-  bluetooth.write(msgLength + ASCII);
-  //for( int i=0; i < msgLength; i++)
+  bluetooth.write(msgLength + ASCII); 
+  //Serial.print(msgLength  );   //+ ASCII
+  //Serial.print('\n');  
+  for( int i=0; i < msgLength; i++)
   {
-   // sendChar = msg.charAt(i);
+    sendChar = msg.charAt(i);
     
-    //bluetooth.write(sendChar);     
-   // bluetooth.write(i + ASCII);    
+    bluetooth.write(sendChar);     
+    //bluetooth.write(i + ASCII);    
      
-     //Serial.print(i);   
-    
-    //Serial.print(sendChar);  
+    Serial.print(i + ASCII);  
     //Serial.print('\n');  
 
   }
@@ -384,7 +384,7 @@ void loop()
                 //'A'->'A', 'ABC'-> 'C', 48->0, 55->7, 56->8
                 //Only 1byte send on BlueTooth
                 //bluetooth.write('ABC'); 
-                msg_to_rpi("ABC");
+                msg_to_rpi("KANGjongHwa");
                 
                 sCommand = "";
                 mainMsg = "";
