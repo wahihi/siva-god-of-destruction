@@ -238,12 +238,30 @@ void message_process(String msg)
 #endif
      
 }
+/**************************************************************************
+ *   msg_to_rpi
+ * This function is devide a String. and the output is character.
+ * It's send the Raspberry Pi with BlueTooth.
+ * The Bluetooth moduls is only one byte transmitter, receiver.
+ * so i write this function.
+*************************************************************************/
 
-//char temp[20];
-void msg_to_rpi(char msg)
+void msg_to_rpi(String msg)
 {
-  //bluetooth.write('ABC'); 
-  Serial.print(msg);  
+  int msgLength = msg.length();
+  char sendChar;
+  
+  for( int i=0; i < msgLength; i++)
+  {
+    sendChar = msg.charAt(i);
+    
+    bluetooth.write(sendChar);     
+    
+    Serial.print(sendChar);  
+    Serial.print('\n');  
+
+  }
+  
 }
 
 void loop()
@@ -360,7 +378,7 @@ void loop()
                 //'A'->'A', 'ABC'-> 'C', 48->0, 55->7, 56->8
                 //Only 1byte send on BlueTooth
                 //bluetooth.write('ABC'); 
-                msg_to_rpi('ABC');
+                msg_to_rpi("ABC");
                 
                 sCommand = "";
                 mainMsg = "";
@@ -429,7 +447,7 @@ void loop()
         Serial.println(mainMsg);
         message_process(mainMsg);
         
-        msg_to_rpi('ABC');//test code
+        msg_to_rpi("ABC");//test code
         
         sCommand = "";
         mainMsg = "";
