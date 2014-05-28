@@ -250,11 +250,22 @@ void message_process(String msg)
 #define ASCII 48  // decimal to ASCII
 void msg_to_rpi(String msg)
 {
+  int temp = 0;
   int msgLength = msg.length();
   char sendChar;
     
-  bluetooth.write(msgLength + ASCII); 
-  //Serial.print(msgLength  );   //+ ASCII
+  Serial.print(msgLength);   //+ ASCII
+  //manager the over 10 value 
+  if(msgLength > 9){
+      temp = msgLength / 10;
+      bluetooth.write(temp + ASCII); 
+      temp = msgLength % 10;
+      bluetooth.write(temp + ASCII); 
+  }
+  else{
+      bluetooth.write(msgLength + ASCII); 
+  }
+  
   //Serial.print('\n');  
   for( int i=0; i < msgLength; i++)
   {
