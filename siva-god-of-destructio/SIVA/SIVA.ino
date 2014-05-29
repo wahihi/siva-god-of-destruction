@@ -248,6 +248,9 @@ void message_process(String msg)
 
 //////////  ==> msg_to_rpi function is necessary debugging
 #define ASCII 48  // decimal to ASCII
+#define ONEB 1    // Header is 1 byte
+#define TWOB 2    // Header is 2 byte
+
 void msg_to_rpi(String msg)
 {
   int temp = 0;
@@ -257,12 +260,15 @@ void msg_to_rpi(String msg)
   Serial.print(msgLength);   //+ ASCII
   //manager the over 10 value 
   if(msgLength > 9){
+      bluetooth.write(TWOB + ASCII);
+      
       temp = msgLength / 10;
       bluetooth.write(temp + ASCII); 
       temp = msgLength % 10;
       bluetooth.write(temp + ASCII); 
   }
   else{
+      bluetooth.write(ONEB + ASCII);
       bluetooth.write(msgLength + ASCII); 
   }
   
@@ -395,7 +401,7 @@ void loop()
                 //'A'->'A', 'ABC'-> 'C', 48->0, 55->7, 56->8
                 //Only 1byte send on BlueTooth
                 //bluetooth.write('ABC'); 
-                msg_to_rpi("KANGjongHwa");
+                msg_to_rpi("receive");
                 
                 sCommand = "";
                 mainMsg = "";
