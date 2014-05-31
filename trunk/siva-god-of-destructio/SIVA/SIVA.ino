@@ -367,41 +367,36 @@ void loop()
         {
             cmdBuffer[cnt] = sCommand;
             sCommand = "";
-            Serial.println("============"); 
-            Serial.println(cmdBuffer[cnt]);   
-            //cmdBuffer[cnt].toCharArray(temp, 11); 
-            
-           // Serial.println(temp);  
+            //Serial.println("============"); 
+            //Serial.println(cmdBuffer[cnt]);   
+           
             cmdBuffer[cnt].trim();
             if(cmdBuffer[cnt] == "+CONNECTED"){
                 BTstatus = "CONNECT";
-                Serial.println("OK_START"); 
-            }
-            
+                Serial.println("OK_CONNECT"); 
+            }            
             cnt++;
         }
-        
-        //sCommand.indexOf('n');  
+                
         if(BTstatus == "CONNECT"){
-           Serial.println(BTstatus);
-           Serial.println(sCommand);           
+           //Serial.println(BTstatus);
+           //Serial.println(sCommand);           
 
           if(sCommand.startsWith("SIVA")){
         
               mainMsg.concat(inDat); 
               if(mainMsg.endsWith("END")){
-                Serial.println("#############");
-                Serial.println(mainMsg);
+                //Serial.println("#############");
+                //Serial.println(mainMsg);
                 int index_last = mainMsg.lastIndexOf("END");
-                Serial.println(index_last);        
+                //Serial.println(index_last);        
                 mainMsg = mainMsg.substring(1, index_last);
-                Serial.println(mainMsg);
+                //Serial.println(mainMsg);
                 message_process(mainMsg);
                 
                 //'A'->'A', 'ABC'-> 'C', 48->0, 55->7, 56->8
                 //Only 1byte send on BlueTooth
-                //bluetooth.write('ABC'); 
-                msg_to_rpi("receive");
+                msg_to_rpi("msgProcess_OK");
                 
                 sCommand = "";
                 mainMsg = "";
