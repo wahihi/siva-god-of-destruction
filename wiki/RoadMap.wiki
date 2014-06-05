@@ -16,6 +16,10 @@
  *  홈지니 안드로이드를 통해서, 음성인식 기능을 추가. 기존 RPI명령을 음성으로 전달해서, SIVA에게 명령을 준다.  SIVA <=> RPI <=>Android로 이어지는 정보전달.
  *  RPI에 Web 서비스 기능과 server 역할을 줘서, 집 밖에서도 정보 전달 가능하게 구축한다.
 
+ *  RPI는 main server 역할로써, 데이타를 DB에 넣어, 재가공, 
+ *  :  등록된 메일 list 에게 시간 현재 상태별로 센서 값 전송.
+ *  :  집에 들어온 사람에게 데이터 정보를 app으로 전달.
+
  *  청소로봇에서 청소기능외에 다른 기능은 구현 가능한지, 검토해서 적용하자.http://www.samsung.com/sec/consumer/living-appliances/vacuumcleaners/smarttango-view/VC-RM96W-features
 
  *  iRobot Create® Programmable 을 구입하여, SIVA를 올려본다. 부족한 sensor 기능을 SIVA의 도움을 받을 수 있는지 모색.
