@@ -309,45 +309,29 @@ void read_temper(void)
 {  
     //START
   int chk;
-  Serial.println("read_temper");
-  Serial.print("DHT11, \t");
+  //Serial.println("read_temper");
+  Serial.print("\nGet sensor data\t");
   chk = DHT.read(DHT11_PIN);    // READ DATA
-  //Serial.print(chk);  
- // Serial.println("************************************\n");    
 
-#if 0  
-  if(chk == DHTLIB_OK){
-    Serial.print("OK,\t");  
-  }
-     // DISPLAT DATA
-    Serial.print(DHT.humidity,1);
-    Serial.print(",\t");
-    Serial.println(DHT.temperature,1);
-    delay(1000);
-     
-#else  
   switch (chk){
     case DHTLIB_OK:  
-                Serial.print("OK,\t"); 
+                Serial.print("\nOK,\t"); 
                 break;
     case DHTLIB_ERROR_CHECKSUM: 
-                Serial.print("Checksum error,\t"); 
+                Serial.print("\nChecksum error,\t"); 
                 break;
     case DHTLIB_ERROR_TIMEOUT: 
-                Serial.print("Time out error,\t"); 
+                Serial.print("\nTime out error,\t"); 
                 break;
     default: 
-                Serial.print("Unknown error,\t"); 
+                Serial.print("\nUnknown error,\t"); 
                 break;
   }
-
  // DISPLAT DATA
   Serial.print(DHT.humidity,1);
   Serial.print(",\t");
   Serial.println(DHT.temperature,1);
   delay(1000);
-#endif
-
 }
 
 void loop()
@@ -424,9 +408,8 @@ void loop()
         inDat = bluetooth.read();
         sCommand.concat(inDat);    
         po1 = sCommand.indexOf('+');
-        po2 = sCommand.indexOf('\n');  
-        
-        //read_temper();
+        po2 = sCommand.indexOf('\n');         
+
         if(po2 > 0)
         {
             cmdBuffer[cnt] = sCommand;
@@ -445,12 +428,10 @@ void loop()
         if(BTstatus == "CONNECT"){
            //Serial.println(BTstatus);
            //Serial.println(sCommand);           
-          //read_temper();
           if(sCommand.startsWith("SIVA")){
         
               mainMsg.concat(inDat); 
               if(mainMsg.endsWith("END")){
-          //      Serial.println("#############");
                 read_temper();//good
                 //Serial.println(mainMsg);
                 int index_last = mainMsg.lastIndexOf("END");
@@ -596,10 +577,4 @@ void loop()
   
     
 }
-
-
-
-
-
-
 
