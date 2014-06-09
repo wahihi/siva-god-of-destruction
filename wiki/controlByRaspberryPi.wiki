@@ -16,14 +16,15 @@ control by Raspberry Pi(RPI)
          * [실행 결과는 동영상 촬영 후 YouTube에 남겨두기]
          * [뽀삐와 SIVA의 조우] 라는 제목으로 유투브 올리기]
 
-    * Raspberry Pi send command "Go", "Stop", "Turn Right", "Turn Left"
-    * SIVA act after Raspberry Pi command.
-    * SIVA response the confirm message to Raspberry Pi 
+    * Raspberry Pi send command "Go", "Stop", "Turn Right", "Turn Left" [구현완료]
+    * SIVA act after Raspberry Pi command. [구현완료]
+    * SIVA response the confirm message to Raspberry Pi [구현완료]
+    * PC 키보드에서 단축키(예, go,stop등등은 방향키,센서는 1번등등) Raspberry Pi에서 python에서 전체 메세지로 변환해서 SIVA에게 뿌려준다
 
     * Raspberry Pi가 SIVA에게, 센서 ( 온습도 센서, sound 센서 ) 데이터를 요청.
        * 데이타를 1회 요청, 반복적으로 시간간격으로 요청,
        * Raspberry Pi는 센서데이타를 DB에 넣고, 주기적으로 메일링 리스트에 등록된 사람에게 데이타를 보내 준다.
-       * 바이올린 소리를 sound센서로 감지하여, 춤추는 SIVA
+       ~~ * 바이올린 소리를 sound센서로 감지하여, 춤추는 SIVA [보류] ~~
 
     * 블루투스 전파 강도에 따른, 위치 지정
        * 정지 시켜야 할 지점별로 블루투스 강세를 기록.
