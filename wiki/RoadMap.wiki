@@ -20,6 +20,8 @@
  *  :  등록된 메일 list 에게 시간 현재 상태별로 센서 값 전송.
  *  :  집에 들어온 사람에게 데이터 정보를 app으로 전달.
 
+ *  SIVA와 RPI의 바이너리를 다운로드 해주는 다운로더 제작. 일반 사용자들은, binary만 있으면, 편안하게 다운 받을 수 있도록 해주는 프로그램.(필수 항목)
+
  *  청소로봇에서 청소기능외에 다른 기능은 구현 가능한지, 검토해서 적용하자.http://www.samsung.com/sec/consumer/living-appliances/vacuumcleaners/smarttango-view/VC-RM96W-features
 
  *  iRobot Create® Programmable 을 구입하여, SIVA를 올려본다. 부족한 sensor 기능을 SIVA의 도움을 받을 수 있는지 모색.
