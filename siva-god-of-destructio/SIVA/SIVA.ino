@@ -68,9 +68,9 @@ void ultraSensorCheck()
 
   if(ultra_val < ULTRA_DISTANCE)  //25cm
   {
-    Serial.print("ultra value = ");  
-    Serial.print("\t");      
-    Serial.println(ultra_val);
+    //Serial.print("ultra value = ");  
+    //Serial.print("\t");      
+    //Serial.println(ultra_val);
     
     machineState = ULTRA_DISTANCE;
     //turn_left();    
@@ -79,9 +79,9 @@ void ultraSensorCheck()
   
   if(ultra_val < ULTRA_DANGER)    //5cm
   {
-    Serial.print("ultra value = ");  
-    Serial.print("\t");      
-    Serial.println(ultra_val);
+    //Serial.print("ultra value = ");  
+    //Serial.print("\t");      
+    //Serial.println(ultra_val);
     
     machineState = ULTRA_DANGER;   
     //back_machine();
@@ -103,7 +103,7 @@ void setup()
 {
     infraredReceiverDecode.begin();
     Serial.begin(9600);
-    Serial.println("InfraredReceiverDecode and Bluetooth Start!");
+    //Serial.println("InfraredReceiverDecode and Bluetooth Start!");
 
 #if 1 //humidity sensor    
     // Humidity & Temperature Sensor
@@ -113,12 +113,12 @@ void setup()
     Serial.println(DHT11LIB_VERSION);
     Serial.println();
     */
-    Serial.println("DHT Sensor PROGRAM Start");
-    Serial.println("Type,\tstatus,\tHumidity (%),\tTemperature (C)");
+    //Serial.println("DHT Sensor PROGRAM Start");
+    //Serial.println("Type,\tstatus,\tHumidity (%),\tTemperature (C)");
 #endif
     bluetooth.begin(9600);
  
- #if 0   //temp
+ #if 1   //temp
     MsTimer2::set(100, ultraSensorCheck); // 500ms period   : 500, 1 sec 1000
     MsTimer2::start();
   
@@ -130,36 +130,39 @@ void setup()
 
 }
 
-void go_machine()
+String go_machine()
 {
 	          motor1.run(-motorSpeed);            
         	  motor2.run(-motorSpeed);            
                   motor3.run(-motorSpeed);            
                   motor4.run(-motorSpeed);            
     	          delay(TIME_DELAY);  // 2000 -> 10
+                  return "OK_GO";
 }
 
-void stop_machine()
+String stop_machine()
 {
                   motor1.run(0); 
     	          motor2.run(0); 
                   motor3.run(0);
                   motor4.run(0);
                   delay(TIME_DELAY);
+                  return "OK_STOP";
 }
 
-void back_machine()
+String back_machine()
 {
                   motor1.run(motorSpeed); // value: between -255 and 255.
     	          motor2.run(motorSpeed); // value: between -255 and 255.
                   motor3.run(motorSpeed);
                   motor4.run(motorSpeed);
     	          delay(TIME_DELAY);
+                  return "OK_BACK";
 }
 
-void turn_right()
+String turn_right()
 {
-                 Serial.println("turn right");
+                 //Serial.println("turn right");
              	  motor1.run(-motorSpeed);            
         	  motor2.run(-motorSpeed);                               
                   motor4.run(-motorSpeed);      
@@ -168,12 +171,13 @@ void turn_right()
         	  motor2.run(motorSpeed);    
                   motor3.run(motorSpeed);    
                   delay(1300);   //TIME_DELAY
+                  return "OK_TURNRIGHT";
         
 }
 
-void turn_left()
+String turn_left()
 {
-                  Serial.println("turn left");
+                  //Serial.println("turn left");
                   motor1.run(-motorSpeed);            
         	  motor2.run(-motorSpeed);    
                   motor3.run(-motorSpeed);    
@@ -182,43 +186,47 @@ void turn_left()
         	  motor2.run(motorSpeed);                               
                   motor4.run(motorSpeed);
                   delay(1400);       
+                  return "OK_TURNLEFT";
 }
 
 void message_process(String msg)
 {
     // Serial.println("@@@@@@@@@@@@@@@@@"); 
     //  Serial.println(msg);
+    String rspMachine;
 
       if(msg == "go"){
-    //    Serial.println("GO");
-        go_machine();
+       // Serial.println("GO");
+        rspMachine = go_machine();        
       }
       else if(msg == "stop"){
    //     Serial.println("STOP");
-        stop_machine();
+        rspMachine = stop_machine();
       } 
       else if(msg == "back"){
     //    Serial.println("BACK");
-        back_machine();
+        rspMachine = back_machine();
       }   
       else if(msg == "turnleft"){
    //     Serial.println("turn left");
-        turn_left();
+        rspMachine = turn_left();
       }   
       else if(msg == "turnright"){
    //     Serial.println("turn right");
-        turn_right();
+        rspMachine = turn_right();
       }   
       else if(msg == "turbo"){
-          Serial.println("turbo");
+          //Serial.println("turbo");
       }   
       else if(msg == "readtemp"){
          // read_temper();
       }          
       else {
-          Serial.println("msg ERROR!!!");
+          //Serial.println("msg ERROR!!!");
       }
       
+      messge_assemble(rspMachine);
+   
 #if 0   
       switch(msg)
       {
@@ -252,7 +260,7 @@ void message_process(String msg)
               stop_machine();
               break;
       }
-#endif
+#endif   
      
 }
 /**************************************************************************
@@ -274,7 +282,8 @@ void msg_to_rpi(String msg)
   int msgLength = msg.length();
   char sendChar;
     
-  Serial.print(msgLength);   //+ ASCII
+  //Serial.print(msg);   //+ ASCII
+  //Serial.print(msgLength);   //+ ASCII
   //manager the over 10 value 
   if(msgLength > 9){
       bluetooth.write(TWOB + ASCII);
@@ -297,42 +306,13 @@ void msg_to_rpi(String msg)
     bluetooth.write(sendChar);     
     //bluetooth.write(i + ASCII);    
      
-    Serial.print(i + ASCII);  
+    //Serial.print(i + ASCII);  
     //Serial.print('\n');  
 
   }
   
 }
 
-//humidity sensor    
-void read_temper(void)
-{  
-    //START
-  int chk;
-  //Serial.println("read_temper");
-  Serial.print("\nGet sensor data\t");
-  chk = DHT.read(DHT11_PIN);    // READ DATA
-
-  switch (chk){
-    case DHTLIB_OK:  
-                Serial.print("\nOK,\t"); 
-                break;
-    case DHTLIB_ERROR_CHECKSUM: 
-                Serial.print("\nChecksum error,\t"); 
-                break;
-    case DHTLIB_ERROR_TIMEOUT: 
-                Serial.print("\nTime out error,\t"); 
-                break;
-    default: 
-                Serial.print("\nUnknown error,\t"); 
-                break;
-  }
- // DISPLAT DATA
-  Serial.print(DHT.humidity,1);
-  Serial.print(",\t");
-  Serial.println(DHT.temperature,1);
-  delay(1000);
-}
 
 void loop()
 {
@@ -363,7 +343,7 @@ void loop()
     //  Serial.println(motorHandler);  
       if( motorHandler & 0x01) //0 bit -> turn right,
       {
-        Serial.println("turn right");      
+        //Serial.println("turn right");      
         turn_right();           
         motorHandler &= 0xFE;
      //   Serial.println(motorHandler);     
@@ -371,7 +351,7 @@ void loop()
       
       if( motorHandler & 0x02) //1 bit -> turn left,
       {
-        Serial.println("turn left");      
+        //Serial.println("turn left");      
         turn_left();           
         motorHandler &= 0xFD;
       //  Serial.println(motorHandler);     
@@ -379,7 +359,7 @@ void loop()
       
       if( motorHandler & 0x10) //4 bit -> ULTRA DANGER ON->OFF
       {
-        Serial.println("ULTRA DANGER stop machine");
+        //Serial.println("ULTRA DANGER stop machine");
         //stop_machine();               
         go_machine();
         motorHandler &= 0xEF;
@@ -389,7 +369,7 @@ void loop()
       
       if( motorHandler & 0x20) //5 bit -> ULTRA DISTANCE ON->OFF
       {
-        Serial.println("ULTRA DISTANCE stop machine");
+        //Serial.println("ULTRA DISTANCE stop machine");
         //stop_machine();               
         go_machine();
         motorHandler &= 0xDF;
@@ -420,7 +400,7 @@ void loop()
             cmdBuffer[cnt].trim();
             if(cmdBuffer[cnt] == "+CONNECTED"){
                 BTstatus = "CONNECT";
-                Serial.println("OK_CONNECT"); 
+                //Serial.println("OK_CONNECT"); 
             }            
             cnt++;
         }
@@ -432,17 +412,17 @@ void loop()
         
               mainMsg.concat(inDat); 
               if(mainMsg.endsWith("END")){
-                read_temper();//good
+                //messge_assemble();//good
                 //Serial.println(mainMsg);
                 int index_last = mainMsg.lastIndexOf("END");
                 //Serial.println(index_last);        
                 mainMsg = mainMsg.substring(1, index_last);
-      //          Serial.println(mainMsg);               
+                //Serial.println(mainMsg);               
                 message_process(mainMsg);
                 
                 //'A'->'A', 'ABC'-> 'C', 48->0, 55->7, 56->8
                 //Only 1byte send on BlueTooth
-                msg_to_rpi("msgProcess_OK");
+                //msg_to_rpi("msgProcess_OK");
                 
                 sCommand = "";
                 mainMsg = "";
@@ -495,7 +475,7 @@ void loop()
    
    if(Serial.available())
    {
-     Serial.println("<<<===  Serial available ===>>>");
+     //Serial.println("<<<===  Serial available ===>>>");
      inDat = Serial.read();    
      sCommand.concat(inDat);  
     
@@ -503,15 +483,13 @@ void loop()
 
       mainMsg.concat(inDat); 
       if(mainMsg.endsWith("END")){
-        Serial.println("#############");
-        Serial.println(mainMsg);
+        //Serial.println("#############");
+        //Serial.println(mainMsg);
         int index_last = mainMsg.lastIndexOf("END");
-        Serial.println(index_last);        
-        mainMsg = mainMsg.substring(1, index_last);
-        
-        //read_temper();
-        
-        Serial.println(mainMsg);
+        //Serial.println(index_last);        
+        mainMsg = mainMsg.substring(1, index_last);    
+               
+        //Serial.println(mainMsg);
         message_process(mainMsg);
         
         msg_to_rpi("KANG");//test code
@@ -520,15 +498,15 @@ void loop()
         mainMsg = "";
       }
       else{
-        Serial.println("tail_Bad");
+        //Serial.println("tail_Bad");
       }         
 
     }
     else{
-      Serial.println("header_Bad");
+      //Serial.println("header_Bad");
     }
     
-     Serial.println(sCommand);
+     //Serial.println(sCommand);
      delay(100);
    }
 //<== String check test code.
@@ -539,35 +517,35 @@ void loop()
        
       switch(IRval)
       {
-        case GO:Serial.println("GO");
+        case GO://Serial.println("GO");
              go_machine();
           //   stop_machine(); 
               break;
              
-        case BACK:Serial.println("BACK");
+        case BACK://Serial.println("BACK");
              back_machine();
            //  stop_machine(); 
              break;
              
-         case TURN_RIGHT:Serial.println("turn right");
+         case TURN_RIGHT://Serial.println("turn right");
               turn_right();
           //    stop_machine(); 
               break;
 
-         case TURN_LEFT:Serial.println("turn left");
+         case TURN_LEFT://Serial.println("turn left");
               turn_left();
          //     stop_machine();              
               break;
      
 
-        case STOP:Serial.println("STOP");
+        case STOP://Serial.println("STOP");
              stop_machine(); 
              break;
             
         default:
-              Serial.print("IR value = ");  
-              Serial.print("\t");      
-              Serial.println(IRval);
+              //Serial.print("IR value = ");  
+              //Serial.print("\t");      
+              //Serial.println(IRval);
               break;
       }
       
@@ -577,4 +555,46 @@ void loop()
   
     
 }
+
+
+//humidity sensor    
+void messge_assemble(String rcvMsg)
+{  
+    //START
+  int chk;
+  String sendMsg;
+  //Serial.println("read_temper");
+  //Serial.print("\nGet sensor data\t");
+  chk = DHT.read(DHT11_PIN);    // READ DATA
+
+  switch (chk){
+    case DHTLIB_OK:  
+                //Serial.print("\nOK,\t"); 
+                break;
+    case DHTLIB_ERROR_CHECKSUM: 
+                //Serial.print("\nChecksum error,\t"); 
+                break;
+    case DHTLIB_ERROR_TIMEOUT: 
+                //Serial.print("\nTime out error,\t"); 
+                break;
+    default: 
+                //Serial.print("\nUnknown error,\t"); 
+                break;
+  }
+ // DISPLAT DATA
+  //Serial.print(DHT.humidity,1);
+  //Serial.print(",\t");
+  //Serial.println(DHT.temperature,1);
+  
+  /*
+     - humidity : "humi" %
+     - temperature : "temp" C
+  */
+  sendMsg = "humi" + String(DHT.humidity) + "%"+ "temp" + String(DHT.temperature) + "C" + rcvMsg;
+  //msg_to_rpi("humidity");
+  msg_to_rpi(sendMsg);
+  //msg_to_rpi(String(DHT.temperature));
+  //delay(100); //1000
+}
+
 
