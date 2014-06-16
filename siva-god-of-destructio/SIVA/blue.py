@@ -5,23 +5,13 @@ import serial
 bluetoothSerial = serial.Serial( "/dev/rfcomm1", baudrate=9600 )
 
 tree = 0
-while tree < 1:
+recMsg = ""
+
+while tree < 20:
         tree = tree + 1
+        recMsg = ""
         a = raw_input( "Please enter the first number: " )
         bluetoothSerial.write( "{0}".format( a ) )
-#       print bluetoothSerial.readline()
-
-#       bluetoothSerial.flush()
-
-        bluetoothSerial.write( "{0}".format( a ) )
-#       print bluetoothSerial.readline()
-
-#       bluetoothSerial.flush()
-
-#       ack_check = 0
-#       while ack_check < 13:
-#               print(bluetoothSerial.read())
-#               ack_check = ack_check + 1
 
         headerSize = int(bluetoothSerial.read())
         print(headerSize)
@@ -35,10 +25,10 @@ while tree < 1:
 
         print(msgSize)
 
-        recMsg = ""
         for i in range(msgSize):
                 recMsg += bluetoothSerial.read()
-                print(recMsg)
+
+        print(recMsg)
 
 
 
