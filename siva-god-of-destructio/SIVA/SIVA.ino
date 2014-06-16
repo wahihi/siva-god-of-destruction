@@ -105,20 +105,9 @@ void setup()
     Serial.begin(9600);
     //Serial.println("InfraredReceiverDecode and Bluetooth Start!");
 
-#if 1 //humidity sensor    
-    // Humidity & Temperature Sensor
-    /*
-    Serial.println("DHT TEST PROGRAM ");
-    Serial.print("LIBRARY VERSION: ");
-    Serial.println(DHT11LIB_VERSION);
-    Serial.println();
-    */
-    //Serial.println("DHT Sensor PROGRAM Start");
-    //Serial.println("Type,\tstatus,\tHumidity (%),\tTemperature (C)");
-#endif
     bluetooth.begin(9600);
  
- #if 1   //temp
+ #if 0   //temp
     MsTimer2::set(100, ultraSensorCheck); // 500ms period   : 500, 1 sec 1000
     MsTimer2::start();
   
@@ -218,8 +207,8 @@ void message_process(String msg)
       else if(msg == "turbo"){
           //Serial.println("turbo");
       }   
-      else if(msg == "readtemp"){
-         // read_temper();
+      else if(msg == "humi"){
+         rspMachine = "";
       }          
       else {
           //Serial.println("msg ERROR!!!");
