@@ -10,6 +10,9 @@
     * 다음 사이트를 보고, 참고 http://www.makeblock.cc/introduction/
 
 = SIVA Ver2.0 =
+  * Version Purpose
+    : End To End => 끝단 (센서등이 있는곳의 device) 에서 끝단 WEB 까지 데이타 전송 경로를 구축한다.
+
  *  [ENG] 
  *   [KOR] 블루투스로 라즈베리파이와 통신을 해서 , 의미있는 데이타를 주고 받기.
  *  RPI는 main server 역할로써, 데이타를 DB에 넣어, 재가공, 
