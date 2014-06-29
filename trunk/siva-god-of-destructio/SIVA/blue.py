@@ -1,16 +1,15 @@
 #! /usr/bin/python
 
 import serial
+import time
 
 bluetoothSerial = serial.Serial( "/dev/rfcomm1", baudrate=9600 )
 
-tree = 0
-recMsg = ""
 
-while tree < 20:
-        tree = tree + 1
+def sibu():
+        print("sibu call")
         recMsg = ""
-        a = raw_input( "Please enter the first number: " )
+        a = "SIVAhumiEND"
         bluetoothSerial.write( "{0}".format( a ) )
 
         headerSize = int(bluetoothSerial.read())
@@ -30,5 +29,15 @@ while tree < 20:
 
         print(recMsg)
 
+def main():
+    pass
 
+if __name__ == '__main__':
+        main()
+        cnt = 0
 
+        #while cnt < 5:
+        while True:
+                cnt += 1
+                sibu()
+                time.sleep(1)
