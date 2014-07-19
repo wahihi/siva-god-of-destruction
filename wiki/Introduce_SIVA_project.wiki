@@ -22,7 +22,18 @@ I have controlled my LG TV remocon.
 
 1. below sensor and module install
 - thermo-hygrometer
-- sound sensor
 - Bluetooth module
 
-2. SIVA controlled by Raspberry Pi
+2. SIVA controlled by Raspberry Pi ( Python )
+
+
+= SIVA version 2.1 =
+
+1. SIVA controlled by Android with bluetooth ( ver 2.3 ~ 4.2 )
+
+
+= SIVA version 2.2 =
+
+1. SIVA controlled by Android with bluetooth ( ver 2.3 ~ 4.2 )
+
+2. SIVA-care
