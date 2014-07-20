@@ -21,6 +21,8 @@
 dht11 DHT;
 #define DHT11_PIN 13//4
 
+//#define PYTHON_BLUETOOTH_PROTOCOL //raspberry-pi python bluetooth protocol
+
 //#define CONFIRM_KEY 68
 #define STOP 68
 #define GO 64
@@ -74,8 +76,7 @@ void ultraSensorCheck()
     
     machineState = ULTRA_DISTANCE;
     //turn_left();    
-   }
-   
+   }   
   
   if(ultra_val < ULTRA_DANGER)    //5cm
   {
@@ -87,7 +88,6 @@ void ultraSensorCheck()
     //back_machine();
    }
    
-
 }
 
 //300 msec check
@@ -214,43 +214,7 @@ void message_process(String msg)
           //Serial.println("msg ERROR!!!");
       }
       
-      messge_assemble(rspMachine);
-   
-#if 0   
-      switch(msg)
-      {
-        case "go":Serial.println("GO");
-             go_machine();
-              break;
-             
-        case "back":Serial.println("BACK");
-             back_machine();
-             break;
-             
-         case "turnright":Serial.println("turn right");
-              turn_right();
-              break;
-
-         case "turnleft":Serial.println("turn left");
-              turn_left();     
-              break;
-     
-
-        case "stop":Serial.println("STOP");
-             stop_machine(); 
-             break;
-
-        case "turbo":Serial.println("turbo");             
-             break;
-            
-        default:
-              Serial.print("BlueTooth value = ");  
-              Serial.print("\t");                    
-              stop_machine();
-              break;
-      }
-#endif   
-     
+      messge_assemble(rspMachine);        
 }
 /**************************************************************************
  *   msg_to_rpi
@@ -274,7 +238,9 @@ void msg_to_rpi(String msg)
   //Serial.print(msg);   //+ ASCII
   //Serial.print(msgLength);   //+ ASCII
   //manager the over 10 value 
-  if(msgLength > 9){
+  #ifdef PYTHON_BLUETOOTH_PROTOCOL 
+  // for raspberry-pi python bluetooth protocol
+    if(msgLength > 9){
       bluetooth.write(TWOB + ASCII);
       
       temp = msgLength / 10;
@@ -286,6 +252,7 @@ void msg_to_rpi(String msg)
       bluetooth.write(ONEB + ASCII);
       bluetooth.write(msgLength + ASCII); 
   }
+  #endif
   
   //Serial.print('\n');  
   for( int i=0; i < msgLength; i++)
@@ -295,7 +262,7 @@ void msg_to_rpi(String msg)
     bluetooth.write(sendChar);     
     //bluetooth.write(i + ASCII);    
      
-    //Serial.print(i + ASCII);  
+    Serial.print(sendChar);  
     //Serial.print('\n');  
 
   }
@@ -551,7 +518,7 @@ void messge_assemble(String rcvMsg)
 {  
     //START
   int chk;
-  String sendMsg;
+  String sendMsg = NULL;
   //Serial.println("read_temper");
   //Serial.print("\nGet sensor data\t");
   chk = DHT.read(DHT11_PIN);    // READ DATA
@@ -579,10 +546,15 @@ void messge_assemble(String rcvMsg)
      - humidity : "humi" %
      - temperature : "temp" C
   */
+  sendMsg = NULL;
+
+#ifdef PYTHON_BLUETOOTH_PROTOCOL  
   sendMsg = "humi" + String(DHT.humidity) + "%"+ "temp" + String(DHT.temperature) + "C" + rcvMsg;
-  //msg_to_rpi("humidity");
-  msg_to_rpi(sendMsg);
-  //msg_to_rpi(String(DHT.temperature));
+#else
+  sendMsg = "H" + String(DHT.humidity) + "%::"+ "T" + String(DHT.temperature) + "C";
+#endif
+
+  msg_to_rpi(sendMsg);  
   //delay(100); //1000
 }
 
