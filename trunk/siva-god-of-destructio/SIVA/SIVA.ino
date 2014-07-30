@@ -40,6 +40,8 @@ Blue module can only be connected to port 3, 4, 5, 6 of base shield.
 */
 MeBluetooth bluetooth(PORT_4);
 
+MePIRMotionSensor myPIRsensor(PORT_8);
+
 MeInfraredReceiver infraredReceiverDecode(PORT_6); 
 MeUltrasonicSensor ultraSensor(PORT_7); //Ultrasonic module can ONLY be connected to port 3, 4, 5, 6, 7, 8 of base shield.
 
@@ -107,7 +109,7 @@ void setup()
 
     bluetooth.begin(9600);
  
- #if 0   //temp
+ #if 0  //temp
     MsTimer2::set(100, ultraSensorCheck); // 500ms period   : 500, 1 sec 1000
     MsTimer2::start();
   
@@ -288,6 +290,14 @@ void loop()
        }
      
      } 
+     
+     //PIR sensor module
+    if(myPIRsensor.isPeopleDetected())
+    {
+	Serial.println("People Detected");
+        delay(100);
+     }
+
   
     if( EVENT_CHECK & motorHandler )
     {
